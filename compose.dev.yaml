@@ -12,6 +12,7 @@ services:
       - NODE_ENV=development
       - MONGO_USER=mikee
       - MONGO_PASSWORD=password
+      - REDIS_SESSION_SECRET=dbcjbijbibdc
     command: npm run dev
   mongo:
     environment:
