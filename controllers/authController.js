@@ -12,6 +12,7 @@ const signUp = async (req, res, next) => {
             username,
             password: hashedPassword
         });
+        req.session.user = newUser;
 
         res.status(201).json({ message: "User created successfully", user: newUser });
     } catch (error) {
@@ -34,7 +35,7 @@ const login = async (req, res, next) => {
         if (!isPasswordValid) {
             return res.status(401).json({ message: "Invalid username or password" });
         }
-
+        req.session.user = user;
         res.status(200).json({ message: "Login successful", user });
     } catch (error) {
         next(error);

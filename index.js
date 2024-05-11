@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const session = require('express-session');
 const Redis = require('ioredis');
 const RedisStore = require("connect-redis").default
+const cors = require('cors');
 
 const { MONGO_USER, MONGO_PASSWORD, MONDO_IP, MONGO_PORT, REDIS_URL, REDIS_PORT, REDIS_SESSION_SECRET } = require('./config/config');
 const client = Redis.createClient({
@@ -25,7 +26,8 @@ mongoose
 
 const port = process.env.PORT || 3000;
 
-
+app.enable("trust proxy");
+app.use(cors({}))
 app.use(
     session({
         store: new RedisStore({client}),
@@ -42,13 +44,14 @@ app.use(
 app.use(express.urlencoded({extended: true}))
 app.use(express.json())
 
-
+app.get("/api/v1", (req, res) => {
+    res.send("Test ebfw")
+    console.log("This works");
+})
 app.use('/api/v1/posts', posts);
 app.use('/api/v1/users', auth);
 
-app.get("/", (req, res) => {
-    res.send("Test ebfw")
-})
+
 
 app.use('*', (req, res) => {
     res.status(404).json({message: `${req.originalUrl} Route Not found`})
