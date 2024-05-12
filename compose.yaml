@@ -10,6 +10,7 @@ services:
     depends_on: 
       - mongo
     build: .
+    image: michaelibe/node-app
     environment:
       - PORT=3000
   
