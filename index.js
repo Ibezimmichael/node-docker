@@ -45,7 +45,7 @@ app.use(express.urlencoded({extended: true}))
 app.use(express.json())
 
 app.get("/api/v1", (req, res) => {
-    res.send("Test ebfw")
+    res.send("Test ebfw !!!")
     console.log("This works");
 })
 app.use('/api/v1/posts', posts);
